@@ -1,0 +1,95 @@
+server:
+  port: 8090
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+    instance:
+      prefer-ip-address: true
+      hostname: localhost
+
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: citse-ms-maestra
+          uri: lb://citse-ms-maestra
+          predicates:
+            - Path=/api/maestra/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-tipo
+          uri: lb://citse-ms-tipo
+          predicates:
+            - Path=/api/tipo/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-cuestionario
+          uri: lb://citse-ms-cuestionario
+          predicates:
+            - Path=/api/cuestionario/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-ubigeo
+          uri: lb://citse-ms-ubigeo
+          predicates:
+            - Path=/api/ubigeo/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-entidad
+          uri: lb://citse-ms-entidad
+          predicates:
+            - Path=/api/entidad/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-negocio
+          uri: lb://citse-ms-negocio
+          predicates:
+            - Path=/api/negocio/**
+          filters:
+            - StripPrefix=2
+            
+        - id: citse-ms-participante
+          uri: lb://citse-ms-participante
+          predicates:
+            - Path=/api/participante/**
+          filters:
+            - StripPrefix=2
+
+        - id: citse-ms-sg
+          uri: lb://citse-ms-sg
+          predicates:
+            - Path=/api/sg/**
+          filters:
+            - StripPrefix=2
+
+        - id: oauth-service
+          uri: lb://oauth-service
+          predicates:
+            - Path=/api/security/**
+          filters:
+            - StripPrefix=2
+
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTION
