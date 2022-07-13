@@ -6,7 +6,6 @@ spring:
       server:
         git:
           default-label: main
-          uri: https://github.com/davichois/citse-ms-dad
-          search-paths: config-data
+          uri: https://github.com/citseOfficial/config-data
   application:
     name: config-service
